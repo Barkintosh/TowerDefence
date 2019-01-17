@@ -8,28 +8,30 @@ public class ItemButtonBehavior : MonoBehaviour, IPointerEnterHandler, IPointerE
     public Image background;
     public Image icon;
     public Text nameText;
-    public Text priceText; 
+    public Text priceText;
+    public Button button;  
     [Space(5)]
     public int index;
 
-    RectTransform self;
+    public RectTransform self;
 
 
     void Start()
     {
-        self = GetComponent<RectTransform>();
+        if(self == null) self = GetComponent<RectTransform>();
         ConstructionManager cm = GameManager.instance.constructionManager;
         if(index >= 0 && index < cm.towers.Length)
         {
             icon.sprite = cm.towers[index].image;
             nameText.text = cm.towers[index].title;
             priceText.text = cm.towers[index].price.ToString();
-
+            button.onClick.AddListener(() => SelectTower(index));
             gameObject.name = "Buy_" + cm.towers[index].title;
         }
         else
         {
             Debug.Log("undefined tower");
+            Destroy(gameObject);
         }
     }
 

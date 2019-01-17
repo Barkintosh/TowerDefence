@@ -17,7 +17,6 @@ public class HealthInterface : MonoBehaviour
 
     public void UpdateInterface()
     {
-        Debug.Log("Yo");
         if(cHealth != GameManager.instance.systemManager.health)
         {
             cHealth = GameManager.instance.systemManager.health;

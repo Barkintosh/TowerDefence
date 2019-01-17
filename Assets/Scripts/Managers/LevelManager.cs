@@ -12,9 +12,11 @@ public class LevelManager : MonoBehaviour
         if(lineRenderer == null) lineRenderer = GetComponent<LineRenderer>();
         GeneratePath();
         DrawPath();
-        GameManager.instance.enemyManager.SpawnEnemy(0, path[0]);
-        GameManager.instance.enemyManager.SpawnEnemy(1, path[0]);
-        GameManager.instance.enemyManager.SpawnEnemy(2, path[0]);
+
+        for( int i = 0; i < GameManager.instance.enemyManager.enemies.Length; i++)
+        {
+            GameManager.instance.enemyManager.SpawnEnemy(i, path[0]);
+        }
     }
 
     void GeneratePath()

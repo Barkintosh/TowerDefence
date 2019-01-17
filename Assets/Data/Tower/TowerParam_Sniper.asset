@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89c0b09a01a1218468c296589891e47a, type: 3}
+  m_Name: TowerParam_Sniper
+  m_EditorClassIdentifier: 
+  title: Sniper
+  description: Shoot one target for very high damage.
+  price: 100
+  damage: 100
+  speed: 5
+  range: 10
+  image: {fileID: 21300000, guid: f5166d55f11795f46a84c857a81b386d, type: 3}
+  model: {fileID: 100632, guid: 789396300d039cc4fa674d36eddb10a7, type: 3}

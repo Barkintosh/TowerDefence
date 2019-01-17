@@ -8,7 +8,6 @@ public class GridManager : MonoBehaviour
     public int gridSize = 10;
     public float cellSize = 1f;
     public GameObject[,] grid;
-    public GameObject cell;
 
     void Start()
     {

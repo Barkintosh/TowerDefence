@@ -8,6 +8,7 @@ public class EnemyParam : ScriptableObject
     public float health;
     public float speed;
     public float damageToPlayer;
+    public float reward;
     [Header("Visuals")]
     public Sprite image;
     public GameObject model;

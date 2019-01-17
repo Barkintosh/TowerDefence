@@ -22,4 +22,9 @@ public class MoneyManager : MonoBehaviour
         if(money >= price) return true;
         return false;
     }
+
+    public void UpdateMoney(float value)
+    {
+        money += value;
+    }
 }

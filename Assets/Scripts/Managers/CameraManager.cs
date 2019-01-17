@@ -57,14 +57,17 @@ public class CameraManager : MonoBehaviour {
             Input.GetAxis("Mouse Y") * rotateSensibility
         );
         
-        camPivot.rotation = Quaternion.Euler(camPivot.eulerAngles.x,    camPivot.eulerAngles.y + lookDirection.x, camPivot.eulerAngles.z + lookDirection.y);
+        camPivot.rotation = Quaternion.Euler(camPivot.eulerAngles.x, camPivot.eulerAngles.y + lookDirection.x, camPivot.eulerAngles.z + lookDirection.y);
     } 
 
     private void Zoom() 
     {
-        if(Input.GetAxis("Mouse ScrollWheel") > 0 && camTransform.position.y > minZoom)
-            camTransform.localPosition += new Vector3(zoomStep, 0f, 0f);
-        else if(Input.GetAxis("Mouse ScrollWheel") < 0 && camTransform.position.y < maxZoom)
-            camTransform.localPosition -= new Vector3(zoomStep, 0f, 0f);
+        if(!GameManager.instance.inputManager.overElement)
+        {
+            if(Input.GetAxis("Mouse ScrollWheel") > 0 && camTransform.position.y > minZoom)
+                camTransform.localPosition += new Vector3(zoomStep, 0f, 0f);
+            else if(Input.GetAxis("Mouse ScrollWheel") < 0 && camTransform.position.y < maxZoom)
+                camTransform.localPosition -= new Vector3(zoomStep, 0f, 0f);
+        }
     }
 }
