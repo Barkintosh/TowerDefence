@@ -37,17 +37,19 @@ public class ItemButtonBehavior : MonoBehaviour, IPointerEnterHandler, IPointerE
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        /*
         Vector2 newPos = new Vector2(self.position.x - 200f, self.position.y);
         GameManager.instance.interfaceManager.towerBoxBehavior.ShowTowerInformation
         (
             GameManager.instance.constructionManager.towers[index],
             newPos
         );
+        */
     }
  
     public void OnPointerExit(PointerEventData eventData)
     {
-        GameManager.instance.interfaceManager.towerBoxBehavior.Hide();
+        //GameManager.instance.interfaceManager.towerBoxBehavior.Hide();
     }
 
     public void SelectTower(int which)

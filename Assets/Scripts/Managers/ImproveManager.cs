@@ -53,9 +53,9 @@ public class ImproveManager : MonoBehaviour
         selectedTower = _selectedTower;
 
         rangeDrawer.Draw(selectedTower.transform.position, selectedTower.param.range, 50);
-        GameManager.instance.interfaceManager.towerBoxBehavior.ShowTowerInformation
+        GameManager.instance.interfaceManager.towerInterface.ShowTowerInformation
         (
-            selectedTower.param, 
+            selectedTower, 
             new Vector2(Screen.width/10, Screen.height/2)
         );
     }
@@ -63,6 +63,6 @@ public class ImproveManager : MonoBehaviour
     void Unselect()
     {
         selectedTower = null;
-        GameManager.instance.interfaceManager.towerBoxBehavior.Hide();
+        GameManager.instance.interfaceManager.towerInterface.Hide();
     }
 }

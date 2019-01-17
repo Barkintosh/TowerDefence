@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class TowerVisualsBehavior : MonoBehaviour
 {
-    [HideInInspector] public TowerBehavior towerBehavior;
+    [HideInInspector] public TowerBehavior tower;
     public Transform head;
 
     [Header("Animation")]
-    public Animator animator;
+    [HideInInspector] public Animator animator;
     public AnimationClip idleAnimation;
     public AnimationClip shootAnimation;
 
@@ -17,6 +17,8 @@ public class TowerVisualsBehavior : MonoBehaviour
     void Start()
     {
         if(animator == null) animator = GetComponent<Animator>();
+        if(animator.runtimeAnimatorController != GameManager.instance.library.towerAnimator) 
+            animator.runtimeAnimatorController = GameManager.instance.library.towerAnimator;
 
         animatorOverrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
         animator.runtimeAnimatorController = animatorOverrideController;
@@ -27,12 +29,12 @@ public class TowerVisualsBehavior : MonoBehaviour
 
     void Update()
     {
-        if(towerBehavior != null && towerBehavior.target != null)
+        if(tower != null && tower.weapon.target != null)
         {
             // Rotate the tower visual towards its target
-            head.transform.LookAt(towerBehavior.target.transform.position);
+            head.transform.LookAt(tower.weapon.target.transform.position);
 
-            if(Time.time > towerBehavior.reloadTimer)
+            if(Time.time > tower.weapon.reloadTimer)
             {
                 // Fire to the target
                 animator.SetTrigger("Shoot");

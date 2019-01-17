@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9531452}
   - component: {fileID: 1953618722761637287}
   m_Layer: 0
-  m_Name: German
+  m_Name: Sniper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,7 @@ Animator:
   m_GameObject: {fileID: 100632}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: f1da4a48383bb1b41b40a46c94a9e4fb, type: 3}
-  m_Controller: {fileID: 9100000, guid: 58c4583ae310e35428fc032ba5e49d11, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -65,10 +65,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 645eca6b07adc1d47a1fc17b286be526, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerBehavior: {fileID: 0}
+  tower: {fileID: 0}
   head: {fileID: 403684}
   animator: {fileID: 9531452}
-  avatar: {fileID: 9000000, guid: f1da4a48383bb1b41b40a46c94a9e4fb, type: 3}
   idleAnimation: {fileID: 7400000, guid: 5229600f4e11b5442b5322053b0485ed, type: 3}
   shootAnimation: {fileID: 7400000, guid: 3f301bf9b752f2c4ba7fb620b38838b2, type: 3}
 --- !u!1 &106854

@@ -4,80 +4,66 @@ using UnityEngine;
 
 public class TowerBehavior : MonoBehaviour
 {
+    [Header("Parameter")]
     public TowerParam param;
-    public EnemyBehavior target;
+    public int level;
 
-    [HideInInspector] public float reloadTimer;
-    GameObject visual;
-    TowerVisualsBehavior towerVisualsBehavior;
+    [Header("Behavior")]
+    public TowerVisualsBehavior visual;
+    public WeaponBehavior weapon;
 
     public void LoadTower(TowerParam _param)
     {
+        // Applying param
         param = _param;
-        visual = Instantiate(param.model, transform.position, Quaternion.identity, transform);
 
-        // Checking if the tower visual has a visualBehavior
-        towerVisualsBehavior = visual.GetComponent<TowerVisualsBehavior>();
-        if(towerVisualsBehavior != null) towerVisualsBehavior.towerBehavior = this;
+        gameObject.name = "Tower_" + param.title;
+
+        // Visuals
+        visual = Instantiate(param.model, transform.position, Quaternion.identity, transform).GetComponent<TowerVisualsBehavior>();
+        if(visual != null) visual.tower = this;
+
+        // Shooting behavior
+        if(weapon == null) weapon = GetComponent<WeaponBehavior>();
+        if(weapon == null) weapon = gameObject.AddComponent<WeaponBehavior>();
+        weapon.tower = this;
+
+        weapon.Load(
+            param.damage * param.levelMultiplier[level],
+            param.speed * param.levelMultiplier[level],
+            param.range * param.levelMultiplier[level]
+        );
     }
 
-
-    EnemyBehavior NewTarget()
+    public void LevelUp()
     {
-        List<EnemyBehavior> inRange = new List<EnemyBehavior>();
-        foreach(EnemyBehavior enemy in GameManager.instance.enemyManager.activeEnemies)
+        if(level < param.levelMultiplier.Length - 1)
         {
-            if(Vector3.Distance(transform.position, enemy.transform.position) < param.range)
-            {
-                inRange.Add(enemy);
-            }
+            level++;
+            weapon.Load(
+                param.damage * param.levelMultiplier[level],
+                param.speed / param.levelMultiplier[level],
+                param.range * param.levelMultiplier[level]
+            );
+            GameManager.instance.interfaceManager.towerInterface.UpdateInterface();
+            Debug.Log(param.name + " improved to level " + level);
         }
-
-        if(inRange.Count > 0)
+        else
         {
-            return GameManager.instance.enemyManager.GetNearestEnemy(inRange.ToArray());
+            Debug.Log("You're trying to level up " + param.name + ", but it has already reached max level");
         }
-
-        return null;
     }
 
-    void Update()
+    public void BuyLevelUp()
     {
-        if(target != null)
-        {
-            // Drawing a debug line renderer on the canvas
-            Vector2 origin = Camera.main.WorldToScreenPoint(transform.position);
-            Vector2 targetPosition = Camera.main.WorldToScreenPoint(target.transform.position);
-            GameManager.instance.canvasLineRenderer.DrawCanvasLine(origin, targetPosition, 2f, Color.red);
-
-            // Rotate the tower visual towards its target
-            //visual.transform.LookAt(target.transform.position);
-
-            // Checking if the target is still in range
-            if(Vector3.Distance(transform.position, target.transform.position) > param.range) 
-            {
-                // Getting a new target
-                target = null;
-                target = NewTarget();
-            }
-
-            // Check if the weapon is ready to fire
-            if(Time.time > reloadTimer)
-            {
-                Shoot();
-            }
-        }
-        else target = NewTarget();
+        if(level < param.levelMultiplier.Length - 1 && GameManager.instance.moneyManager.Buy(param.price * param.levelMultiplier[level]))
+            LevelUp();
     }
 
-    void Shoot()
+    public void LoadWeapon()
     {
-        target.TakeDamage(param.damage);
-        reloadTimer = Time.time + param.speed;
-
-        if(towerVisualsBehavior != null && towerVisualsBehavior.animator != null)
-        {
-            towerVisualsBehavior.animator.SetTrigger("Shoot");
-        }
+        weapon.damage = param.damage * param.levelMultiplier[level];
+        weapon.speed = param.speed / param.levelMultiplier[level];
+        weapon.range = param.range * param.levelMultiplier[level];
     }
 }

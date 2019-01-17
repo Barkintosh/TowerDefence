@@ -10,4 +10,8 @@ public class Library : MonoBehaviour
 
     [Header("Materials")]
     public Material holoMaterial;
+
+    [Header("Animators")]
+    public RuntimeAnimatorController towerAnimator;
+    public RuntimeAnimatorController enemyAnimator;
 }

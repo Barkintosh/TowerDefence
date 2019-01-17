@@ -6,6 +6,7 @@ public class HealthBarManager : MonoBehaviour
 {
     public GameObject healthBarPrefab;
     public List<HealthBarBehavior> activeHealthBars = new List<HealthBarBehavior>();
+    public RectTransform holder;
 
     public HealthBarBehavior GetBar()
     {
@@ -14,8 +15,10 @@ public class HealthBarManager : MonoBehaviour
             if(!bar.taken) return bar;
         }
         HealthBarBehavior newBar = Instantiate(healthBarPrefab, Vector3.zero, Quaternion.identity).GetComponent<HealthBarBehavior>();
-        newBar.transform.SetParent(transform);  
+        newBar.transform.SetParent(holder);  
         activeHealthBars.Add(newBar);
+
+
         return newBar;
     }
 }
